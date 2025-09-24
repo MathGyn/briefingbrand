@@ -660,6 +660,29 @@ async function submitForm() {
             const googleFieldId = googleFormFields[key];
             const value = formData[key];
             if (!googleFieldId || value == null || value === '') return;
+
+            // Mapeia valores internos -> rótulos do Google Forms quando necessário
+            if (key === 'usoLogo') {
+                const labelMap = {
+                    'site': 'Site/Plataforma digital',
+                    'materiais-impressos': 'Materiais impressos',
+                    'redes-sociais': 'Redes sociais',
+                    'uniformes': 'Uniformes/Roupas',
+                    'sinalizacao': 'Sinalização/Placas',
+                    'produtos': 'Produtos/Embalagens'
+                };
+                if (Array.isArray(value)) {
+                    value.forEach(v => {
+                        const mapped = labelMap[v] || v;
+                        body.append(googleFieldId, mapped);
+                    });
+                } else {
+                    const mapped = labelMap[value] || value;
+                    body.append(googleFieldId, mapped);
+                }
+                return;
+            }
+
             if (Array.isArray(value)) {
                 value.forEach(v => body.append(googleFieldId, v));
             } else {
