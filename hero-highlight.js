@@ -22,30 +22,32 @@ document.addEventListener('DOMContentLoaded', function() {
   Object.assign(layerLight.style, {
     position: 'absolute',
     inset: '0',
-    // Deixar os pontos mais escuros no estado sem hover
+    // Escurecer ainda mais os pontos base (modo claro)
     opacity: '1',
     pointerEvents: 'none',
-    // neutral-600 para ficar mais escuro
-    ...dotPattern('rgb(115 115 115)')
+    // neutral-700 para ficar mais escuro
+    ...dotPattern('rgb(64 64 64)')
   });
 
   Object.assign(layerDark.style, {
     position: 'absolute',
     inset: '0',
-    // Para ambientes dark, manter visível também
-    opacity: '0.7',
+    // Em dark mode, ainda mais escuro
+    opacity: '0.9',
     pointerEvents: 'none',
-    ...dotPattern('rgb(38 38 38)') // neutral-800 for dark
+    // neutral-900
+    ...dotPattern('rgb(23 23 23)')
   });
 
-  // Spotlight indigo sob o cursor
+  // Spotlight vermelho sob o cursor
   Object.assign(spotlight.style, {
     position: 'absolute',
     inset: '0',
     opacity: '0',
     transition: 'opacity 300ms ease',
     pointerEvents: 'none',
-    ...dotPattern('rgb(99 102 241)') // indigo-500
+    // red-500
+    ...dotPattern('rgb(239 68 68)')
   });
 
   container.appendChild(layerLight);
