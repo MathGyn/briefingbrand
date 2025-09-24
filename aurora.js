@@ -1,5 +1,5 @@
-// Use CDN for OGL so it works in production (GitHub Pages / no node_modules)
-import { Renderer, Program, Mesh, Color, Triangle } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/dist/ogl.mjs';
+// Importa OGL do node_modules para desenvolvimento local
+import { Renderer, Program, Mesh, Color, Triangle } from './node_modules/ogl/src/index.js';
 
 const VERT = `#version 300 es
 in vec2 position;
@@ -129,52 +129,59 @@ export class Aurora {
     const ctn = this.container;
     if (!ctn) return;
 
-    this.renderer = new Renderer({
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: true
-    });
-    
-    const gl = this.renderer.gl;
-    gl.clearColor(0, 0, 0, 0);
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-    gl.canvas.style.backgroundColor = 'transparent';
+    try {
+      this.renderer = new Renderer({
+        alpha: true,
+        premultipliedAlpha: true,
+        antialias: true
+      });
+      
+      const gl = this.renderer.gl;
+      gl.clearColor(0, 0, 0, 0);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+      gl.canvas.style.backgroundColor = 'transparent';
 
-    this.resize = this.resize.bind(this);
-    window.addEventListener('resize', this.resize);
+      this.resize = this.resize.bind(this);
+      window.addEventListener('resize', this.resize);
 
-    const geometry = new Triangle(gl);
-    if (geometry.attributes.uv) {
-      delete geometry.attributes.uv;
-    }
-
-    const colorStopsArray = this.options.colorStops.map(hex => {
-      const c = new Color(hex);
-      return [c.r, c.g, c.b];
-    });
-
-    this.program = new Program(gl, {
-      vertex: VERT,
-      fragment: FRAG,
-      uniforms: {
-        uTime: { value: 0 },
-        uAmplitude: { value: this.options.amplitude },
-        uColorStops: { value: colorStopsArray },
-        uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
-        uBlend: { value: this.options.blend }
+      const geometry = new Triangle(gl);
+      if (geometry.attributes.uv) {
+        delete geometry.attributes.uv;
       }
-    });
 
-    this.mesh = new Mesh(gl, { geometry, program: this.program });
-    ctn.appendChild(gl.canvas);
+      const colorStopsArray = this.options.colorStops.map(hex => {
+        const c = new Color(hex);
+        return [c.r, c.g, c.b];
+      });
 
-    this.startAnimation();
-    this.resize();
+      this.program = new Program(gl, {
+        vertex: VERT,
+        fragment: FRAG,
+        uniforms: {
+          uTime: { value: 0 },
+          uAmplitude: { value: this.options.amplitude },
+          uColorStops: { value: colorStopsArray },
+          uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
+          uBlend: { value: this.options.blend }
+        }
+      });
+
+      this.mesh = new Mesh(gl, { geometry, program: this.program });
+      ctn.appendChild(gl.canvas);
+
+      this.startAnimation();
+      this.resize();
+      
+      console.log('Aurora background inicializado com sucesso');
+    } catch (error) {
+      console.error('Erro ao inicializar Aurora:', error);
+      // Fallback: manter o fundo grafite
+    }
   }
 
   resize() {
-    if (!this.container) return;
+    if (!this.container || !this.renderer) return;
     const width = this.container.offsetWidth;
     const height = this.container.offsetHeight;
     this.renderer.setSize(width, height);
@@ -184,6 +191,8 @@ export class Aurora {
   }
 
   startAnimation() {
+    if (!this.program || !this.renderer || !this.mesh) return;
+    
     const animate = (t) => {
       this.animateId = requestAnimationFrame(animate);
       const time = t * 0.01;
@@ -211,9 +220,11 @@ export class Aurora {
       cancelAnimationFrame(this.animateId);
     }
     window.removeEventListener('resize', this.resize);
-    if (this.container && this.renderer.gl.canvas.parentNode === this.container) {
+    if (this.container && this.renderer && this.renderer.gl.canvas.parentNode === this.container) {
       this.container.removeChild(this.renderer.gl.canvas);
     }
-    this.renderer.gl.getExtension('WEBGL_lose_context')?.loseContext();
+    if (this.renderer && this.renderer.gl) {
+      this.renderer.gl.getExtension('WEBGL_lose_context')?.loseContext();
+    }
   }
 }
