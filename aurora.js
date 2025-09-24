@@ -1,5 +1,5 @@
-// Importa OGL do node_modules para desenvolvimento local
-import { Renderer, Program, Mesh, Color, Triangle } from './node_modules/ogl/src/index.js';
+// Importa OGL via CDN para funcionar em ambientes estáticos (Vercel/GitHub Pages)
+import { Renderer, Program, Mesh, Color, Triangle } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/dist/ogl.mjs';
 
 const VERT = `#version 300 es
 in vec2 position;
