@@ -1,5 +1,23 @@
-// Importa OGL via CDN para funcionar em ambientes estáticos (Vercel/GitHub Pages)
-import { Renderer, Program, Mesh, Color, Triangle } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/dist/ogl.mjs';
+// Carregador dinâmico de OGL com fallback entre CDNs (evita 404 em produção)
+async function loadOGL() {
+  const sources = [
+    'https://cdn.jsdelivr.net/npm/ogl@0.0.32/dist/ogl.mjs',
+    'https://unpkg.com/ogl@0.0.32/dist/ogl.mjs',
+    'https://esm.sh/ogl@0.0.32'
+  ];
+  let lastError = null;
+  for (const src of sources) {
+    try {
+      const mod = await import(src);
+      if (mod?.Renderer && mod?.Program && mod?.Mesh && mod?.Color && mod?.Triangle) {
+        return mod;
+      }
+    } catch (e) {
+      lastError = e;
+    }
+  }
+  throw lastError || new Error('Falha ao carregar OGL de todos os CDNs');
+}
 
 const VERT = `#version 300 es
 in vec2 position;
@@ -122,14 +140,17 @@ export class Aurora {
     this.mesh = null;
     this.animateId = null;
     
-    this.init();
+    this.ready = this.init();
   }
 
-  init() {
+  async init() {
     const ctn = this.container;
     if (!ctn) return;
 
     try {
+      const { Renderer, Program, Mesh, Color, Triangle } = await loadOGL();
+      this._ogl = { Renderer, Program, Mesh, Color, Triangle };
+
       this.renderer = new Renderer({
         alpha: true,
         premultipliedAlpha: true,
@@ -151,7 +172,7 @@ export class Aurora {
       }
 
       const colorStopsArray = this.options.colorStops.map(hex => {
-        const c = new Color(hex);
+        const c = new this._ogl.Color(hex);
         return [c.r, c.g, c.b];
       });
 
@@ -201,7 +222,7 @@ export class Aurora {
       this.program.uniforms.uBlend.value = this.options.blend;
       
       const colorStopsArray = this.options.colorStops.map(hex => {
-        const c = new Color(hex);
+        const c = new this._ogl?.Color(hex);
         return [c.r, c.g, c.b];
       });
       this.program.uniforms.uColorStops.value = colorStopsArray;

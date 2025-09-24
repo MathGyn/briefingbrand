@@ -664,7 +664,7 @@ async function submitForm() {
         });
         
         // Simular envio para o Google Forms (substitua pela URL real do seu formulário)
-        const response = await fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLScIDdQTXjxGhq368hiDne04Ng8jMpzAscfES27ABi6AiJmFow/formResponse', {
+        const response = await fetch('https://docs.google.com/forms/d/e/1FAIpQLScIDdQTXjxGhq368hiDne04Ng8jMpzAscfES27ABi6AiJmFow/formResponse', {
             method: 'POST',
             body: formDataToSend,
             mode: 'no-cors' // Necessário para Google Forms
