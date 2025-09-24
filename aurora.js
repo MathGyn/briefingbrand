@@ -4,13 +4,21 @@ async function loadOGL() {
   const sources = isLocal
     ? [
         './node_modules/ogl/src/index.js',
+        // jsDelivr/unpkg versões e caminhos alternativos
+        'https://cdn.jsdelivr.net/npm/ogl@0.0.40/build/ogl.module.js',
         'https://cdn.jsdelivr.net/npm/ogl@0.0.32/dist/ogl.mjs',
+        'https://unpkg.com/ogl@0.0.40/build/ogl.module.js',
         'https://unpkg.com/ogl@0.0.32/dist/ogl.mjs',
+        // Skypack/esm.sh
+        'https://cdn.skypack.dev/ogl@0.0.32',
         'https://esm.sh/ogl@0.0.32'
       ]
     : [
+        'https://cdn.jsdelivr.net/npm/ogl@0.0.40/build/ogl.module.js',
         'https://cdn.jsdelivr.net/npm/ogl@0.0.32/dist/ogl.mjs',
+        'https://unpkg.com/ogl@0.0.40/build/ogl.module.js',
         'https://unpkg.com/ogl@0.0.32/dist/ogl.mjs',
+        'https://cdn.skypack.dev/ogl@0.0.32',
         'https://esm.sh/ogl@0.0.32'
       ];
   let lastError = null;
