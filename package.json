@@ -1,0 +1,26 @@
+{
+  "name": "briefing-logo",
+  "version": "1.0.0",
+  "description": "Aplicação web para briefing de criação de logo",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --port=8000 --open=/",
+    "dev-python": "python3 -m http.server 8000",
+    "start": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "briefing",
+    "logo",
+    "form",
+    "web"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "ogl": "^1.0.11"
+  }
+}

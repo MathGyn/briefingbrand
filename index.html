@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Briefing de Logo - Formulário Interativo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="aurora.css">
+</head>
+<body>
+    <!-- Aurora Background -->
+    <div id="aurora-background" class="aurora-container"></div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-content">
+                <h1>Vamos criar algo incrível.</h1>
+                <p>Responda às perguntas para que possamos entender perfeitamente a sua visão para o novo logo.</p>
+                <div class="progress-indicator">
+                    <span class="step-counter" id="progressText">Passo 1 de 19</span>
+                </div>
+            </div>
+        </div>
+
+        <main class="main">
+            <div class="form-container">
+                <!-- Step 0: Boas-vindas -->
+                <div class="step active" data-step="0">
+                    <div class="step-content welcome-screen">
+                        <div class="welcome-tag">Briefing</div>
+                        <h1 class="welcome-title">Criação de Marca</h1>
+                        <div class="welcome-message">
+                            <p>Olá! Chegou a hora de darmos início ao processo de criação da sua marca.</p>
+                            <p>Começaremos pelo briefing. Então, responda algumas perguntas e me ajude a capturar sua visão e valores, para que eu possa te ajudar a construir sua marca.</p>
+                        </div>
+                        <div class="welcome-start" onclick="nextStep()">
+                            <span>Iniciar</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 1: DADOS PESSOAIS -->
+                
+                <!-- Step 1: Nome completo -->
+                <div class="step" data-step="1">
+                    <div class="step-content">
+                        <h2>Qual é o seu nome completo?</h2>
+                        <div class="input-group">
+                            <input type="text" id="nomeCompleto" placeholder="Digite seu nome completo" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Email -->
+                <div class="step" data-step="2">
+                    <div class="step-content">
+                        <h2>Qual é o seu email?</h2>
+                        <div class="input-group">
+                            <input type="email" id="email" placeholder="Digite seu email" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Telefone -->
+                <div class="step" data-step="3">
+                    <div class="step-content">
+                        <h2>Qual é o seu telefone?</h2>
+                        <div class="input-group">
+                            <input type="tel" id="telefone" placeholder="(00) 00000-0000" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 2: INFORMAÇÕES DA MARCA -->
+
+                <!-- Step 4: Nome da empresa -->
+                <div class="step" data-step="4">
+                    <div class="step-content">
+                        <h2>Qual é o nome da sua empresa/marca?</h2>
+                        <div class="input-group">
+                            <input type="text" id="empresa" placeholder="Digite o nome da empresa/marca" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Tag Line -->
+                <div class="step" data-step="5">
+                    <div class="step-content">
+                        <h2>Qual o Tag Line da empresa?</h2>
+                        <p class="step-description">Tag Line é o termo que fica logo abaixo da logo que descreve o seu negócio. Pode ser algo institucional e direto ou algo mais descontraído e divertido. Ex.: Restaurante, Bistrô, etc.</p>
+                        <div class="input-group">
+                            <input type="text" id="tagLine" placeholder="Digite o tag line da sua empresa" required>
+                            <div class="required-hint">Obrigatório</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6: Redes sociais -->
+                <div class="step" data-step="6">
+                    <div class="step-content">
+                        <h2>Já possui redes sociais? Quais e qual o @ do perfil? <span class="required">*</span></h2>
+                        <div class="input-group">
+                            <textarea id="redesSociais" placeholder="Ex.: Instagram @minhaempresa, Facebook @minhaempresa, etc." rows="3" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 7: O que a empresa faz -->
+                <div class="step" data-step="7">
+                    <div class="step-content">
+                        <h2>Descreva em poucas palavras o que sua empresa faz</h2>
+                        <div class="input-group">
+                            <textarea id="empresaFaz" placeholder="Descreva a atividade principal da sua empresa..." rows="4" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Step 8: Diferencial -->
+                <div class="step" data-step="8">
+                    <div class="step-content">
+                        <h2>O que diferencia seu negócio da concorrência? <span class="required">*</span></h2>
+                        <div class="input-group">
+                            <textarea id="diferencial" placeholder="Descreva o que torna seu negócio único..." rows="4" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 9: Missão da marca -->
+                <div class="step" data-step="9">
+                    <div class="step-content">
+                        <h2>Qual a missão da sua marca? <span class="required">*</span></h2>
+                        <div class="input-group">
+                            <textarea id="missaoMarca" placeholder="Descreva a missão e propósito da sua marca..." rows="4" required></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 3: PÚBLICO-ALVO -->
+
+                <!-- Step 10: Idade do público-alvo -->
+                <div class="step" data-step="10">
+                    <div class="step-content">
+                        <h2>Qual é a idade do seu público alvo?</h2>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="idadePublico" value="0-12" id="idade0-12">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>0 a 12 anos</strong>
+                                    <span>Crianças</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="idadePublico" value="13-17" id="idade13-17">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>13 a 17 anos</strong>
+                                    <span>Adolescentes</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="idadePublico" value="18-24" id="idade18-24">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>18 a 24 anos</strong>
+                                    <span>Jovens adultos</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="idadePublico" value="25-34" id="idade25-34">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>25 a 34 anos</strong>
+                                    <span>Adultos jovens</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="idadePublico" value="35-44" id="idade35-44">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>35 a 44 anos</strong>
+                                    <span>Adultos</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="idadePublico" value="45-54" id="idade45-54">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>45 a 54 anos</strong>
+                                    <span>Adultos maduros</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="idadePublico" value="55+" id="idade55">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>55+ anos</strong>
+                                    <span>Terceira idade</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 11: Classe social do público -->
+                <div class="step" data-step="11">
+                    <div class="step-content">
+                        <h2>Qual é a classe social do seu público? <span class="required">*</span></h2>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="classeSocial" value="classe-a" id="classeA">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Classe A</strong>
+                                    <span>Alta renda</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="classeSocial" value="classe-b" id="classeB">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Classe B</strong>
+                                    <span>Média-alta renda</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="classeSocial" value="classe-c" id="classeC">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Classe C</strong>
+                                    <span>Média renda</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="classeSocial" value="classe-d" id="classeD">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Classe D</strong>
+                                    <span>Média-baixa renda</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="classeSocial" value="classe-e" id="classeE">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Classe E</strong>
+                                    <span>Baixa renda</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 12: Personalidade da marca -->
+                <div class="step" data-step="12">
+                    <div class="step-content">
+                        <h2>Se sua marca fosse uma pessoa, qual dos seguintes grupos de palavras seria melhor para descrevê-la?</h2>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="personalidadeMarca" value="jovem-divertida-energica" id="jovem-divertida">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Jovem, Divertida, Energética</strong>
+                                    <span>Marca vibrante e dinâmica</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="personalidadeMarca" value="confiavel-solida-tradicional" id="confiavel-solida">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Confiável, Sólida, Tradicional</strong>
+                                    <span>Marca estabelecida e segura</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="personalidadeMarca" value="sofisticada-elegante-exclusiva" id="sofisticada-elegante">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Sofisticada, Elegante, Exclusiva</strong>
+                                    <span>Marca premium e refinada</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="personalidadeMarca" value="inovadora-tecnologica-moderna" id="inovadora-tecnologica">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Inovadora, Tecnológica, Moderna</strong>
+                                    <span>Marca de vanguarda</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="personalidadeMarca" value="calorosa-amigavel-acessivel" id="calorosa-amigavel">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Calorosa, Amigável, Acessível</strong>
+                                    <span>Marca próxima e humana</span>
+                                </div>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="personalidadeMarca" value="aventureira-corajosa-ousada" id="aventureira-corajosa">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Aventureira, Corajosa, Ousada</strong>
+                                    <span>Marca destemida e audaz</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 13: Informações adicionais sobre clientes -->
+                <div class="step" data-step="13">
+                    <div class="step-content">
+                        <h2>Há algo mais que você pode nos contar sobre seus clientes?</h2>
+                        <div class="input-group">
+                            <textarea id="infoadicionaisClientes" placeholder="Compartilhe informações adicionais sobre seu público-alvo..." rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO 4: DESIGN E PREFERÊNCIAS VISUAIS -->
+
+                <!-- Step 14: Onde será usado -->
+                <div class="step" data-step="14">
+                    <div class="step-content">
+                        <h2>Onde o logo será mais usado?</h2>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="usoLogo" value="site" id="usoSite">
+                                <span class="checkbox-custom"></span>
+                                <span>Site/Plataforma digital</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="usoLogo" value="materiais-impressos" id="usoImpressos">
+                                <span class="checkbox-custom"></span>
+                                <span>Materiais impressos</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="usoLogo" value="redes-sociais" id="usoRedes">
+                                <span class="checkbox-custom"></span>
+                                <span>Redes sociais</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="usoLogo" value="uniformes" id="usoUniformes">
+                                <span class="checkbox-custom"></span>
+                                <span>Uniformes/Roupas</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="usoLogo" value="sinalizacao" id="usoSinalizacao">
+                                <span class="checkbox-custom"></span>
+                                <span>Sinalização/Placas</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="usoLogo" value="produtos" id="usoProdutos">
+                                <span class="checkbox-custom"></span>
+                                <span>Produtos/Embalagens</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 15: Estilo do logo -->
+                <div class="step" data-step="15">
+                    <div class="step-content">
+                        <h2>Qual dos seguintes designs que você pensa que melhor se adequaria à sua marca?</h2>
+                        
+                        <!-- Área de destaque para moodboard -->
+                        <div class="moodboard-showcase" id="moodboardShowcase" style="display: none;">
+                            <div class="showcase-header">
+                                <h3 id="showcaseTitle">Referências de estilo</h3>
+                                <p id="showcaseDescription">Exemplos de logos famosos</p>
+                            </div>
+                            <div class="showcase-moodboard">
+                                <!-- Minimalista Moodboard -->
+                                <div class="moodboard minimalista-moodboard" id="minimalista-showcase" style="display: none;">
+                                    <div class="logo-ref apple">apple</div>
+                                    <div class="logo-ref nike">✓</div>
+                                    <div class="logo-ref airbnb">airbnb</div>
+                                    <div class="logo-ref uber">uber</div>
+                                </div>
+                                
+                                <!-- Elaborado Moodboard -->
+                                <div class="moodboard elaborado-moodboard" id="elaborado-showcase" style="display: none;">
+                                    <div class="logo-ref starbucks">
+                                        <div class="star-circle">
+                                            <div class="star-inner">★</div>
+                                        </div>
+                                    </div>
+                                    <div class="logo-ref harley">
+                                        <div class="harley-shield">H-D</div>
+                                    </div>
+                                    <div class="logo-ref versace">
+                                        <div class="versace-head">♦</div>
+                                    </div>
+                                    <div class="logo-ref ferrari">
+                                        <div class="ferrari-horse">🐎</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Meio Termo Moodboard -->
+                                <div class="moodboard medio-moodboard" id="medio-showcase" style="display: none;">
+                                    <div class="logo-ref adidas">adidas</div>
+                                    <div class="logo-ref target">◎</div>
+                                    <div class="logo-ref pepsi">
+                                        <div class="pepsi-circle"></div>
+                                    </div>
+                                    <div class="logo-ref fedex">FedEx</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="radio-group-simple">
+                            <label class="radio-option-simple">
+                                <input type="radio" name="estilo" value="minimalista" id="minimalista">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Minimalista</strong>
+                                    <span>Simples, clean e direto</span>
+                                </div>
+                            </label>
+                            <label class="radio-option-simple">
+                                <input type="radio" name="estilo" value="elaborado" id="elaborado">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Elaborado</strong>
+                                    <span>Mais detalhado e complexo</span>
+                                </div>
+                            </label>
+                            <label class="radio-option-simple">
+                                <input type="radio" name="estilo" value="medio" id="medio">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Meio termo</strong>
+                                    <span>Equilibrio entre simples e detalhado</span>
+                                </div>
+                            </label>
+                            <label class="radio-option-simple">
+                                <input type="radio" name="estilo" value="outros" id="outros">
+                                <span class="radio-custom"></span>
+                                <div class="option-content">
+                                    <strong>Outros</strong>
+                                    <span>Descreva seu estilo preferido</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="conditional-field" id="outrosEstiloField" style="display: none;">
+                            <div class="input-group">
+                                <textarea id="outrosEstiloDescricao" placeholder="Descreva o estilo de logo que você tem em mente..." rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 16: Cores de preferência -->
+                <div class="step" data-step="16">
+                    <div class="step-content">
+                        <h2>Tem alguma cor de preferência para o logo?</h2>
+                        <div class="input-group">
+                            <textarea id="coresPreferencia" placeholder="Descreva as cores que gostaria de ver no logo..." rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 17: Cores a evitar -->
+                <div class="step" data-step="17">
+                    <div class="step-content">
+                        <h2>Tem alguma cor que NÃO quer no logo?</h2>
+                        <div class="input-group">
+                            <textarea id="coresEvitar" placeholder="Descreva as cores que NÃO gostaria de ver no logo..." rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 18: Referências -->
+                <div class="step" data-step="18">
+                    <div class="step-content">
+                        <h2>Tem alguma referência/inspiração de logo que gosta?</h2>
+                        <div class="input-group">
+                            <textarea id="referencias" placeholder="Descreva ou cole links de logos que servem de inspiração..." rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 19: Observações -->
+                <div class="step" data-step="19">
+                    <div class="step-content">
+                        <h2>Alguma observação adicional?</h2>
+                        <div class="input-group">
+                            <textarea id="observacoes" placeholder="Compartilhe qualquer informação adicional que considere importante..." rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 20: Resumo e envio -->
+                <div class="step" data-step="20">
+                    <div class="step-content">
+                        <h2>Revisão final</h2>
+                        <p>Revise suas informações antes do envio:</p>
+                        <div class="summary" id="summary"></div>
+                        <div class="loading welcome-screen" id="loading" style="display: none;">
+                            <div class="welcome-tag">Enviando</div>
+                            <h1 class="welcome-title">Processando seu briefing</h1>
+                            <div class="welcome-message">
+                                <p>Estamos recebendo e organizando todas as suas informações.</p>
+                                <p>Aguarde um momento...</p>
+                            </div>
+                            <div class="loading-spinner"></div>
+                        </div>
+                        <div class="success welcome-screen" id="success" style="display: none;">
+                            <div class="welcome-tag">Concluído</div>
+                            <h1 class="welcome-title">Briefing enviado com sucesso!</h1>
+                            <div class="welcome-message">
+                                <p>Recebemos todas as suas informações e já podemos iniciar a criação da sua marca.</p>
+                                <p>Muito obrigado pela confiança depositada em nosso trabalho!</p>
+                            </div>
+                            <div class="success-actions">
+                                <div class="welcome-start" onclick="downloadSummary()">
+                                    <span>Baixar resumo</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="7,10 12,15 17,10"/>
+                                        <line x1="12" y1="15" x2="12" y2="3"/>
+                                    </svg>
+                                </div>
+                                <div class="welcome-start secondary" onclick="restartBriefing()">
+                                    <span>Novo briefing</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                                        <path d="M21 3v5h-5"/>
+                                        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                                        <path d="M3 21v-5h5"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousStep()" style="display: none;">
+                    ← Voltar
+                </button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextStep()">
+                    Próximo
+                </button>
+                <button class="btn btn-primary" id="submitBtn" onclick="submitForm()" style="display: none;">
+                    Enviar Briefing
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Agency Logo -->
+    <div class="logo-container">
+        <img src="logo.svg" alt="Marca & Comunicação" class="agency-logo">
+    </div>
+
+    <script type="module" src="aurora-init.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
