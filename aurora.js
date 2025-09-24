@@ -1,4 +1,5 @@
-import { Renderer, Program, Mesh, Color, Triangle } from './node_modules/ogl/src/index.js';
+// Use CDN for OGL so it works in production (GitHub Pages / no node_modules)
+import { Renderer, Program, Mesh, Color, Triangle } from 'https://cdn.jsdelivr.net/npm/ogl@1.0.11/dist/ogl.mjs';
 
 const VERT = `#version 300 es
 in vec2 position;
