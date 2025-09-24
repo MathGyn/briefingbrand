@@ -22,15 +22,18 @@ document.addEventListener('DOMContentLoaded', function() {
   Object.assign(layerLight.style, {
     position: 'absolute',
     inset: '0',
-    opacity: '0.7',
+    // Deixar os pontos mais escuros no estado sem hover
+    opacity: '1',
     pointerEvents: 'none',
-    ...dotPattern('rgb(212 212 212)') // neutral-300
+    // neutral-600 para ficar mais escuro
+    ...dotPattern('rgb(115 115 115)')
   });
 
   Object.assign(layerDark.style, {
     position: 'absolute',
     inset: '0',
-    opacity: '0',
+    // Para ambientes dark, manter visível também
+    opacity: '0.7',
     pointerEvents: 'none',
     ...dotPattern('rgb(38 38 38)') // neutral-800 for dark
   });
