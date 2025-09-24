@@ -629,8 +629,8 @@ async function submitForm() {
     document.body.classList.add('welcome-mode');
     
     try {
-        // Preparar dados para envio (Google Forms espera x-www-form-urlencoded)
-        const body = new URLSearchParams();
+        // Preparar dados para envio (Google Forms aceita form-urlencoded e FormData; usaremos FormData)
+        const body = new FormData();
         
         // Mapeamento dos campos para o Google Form (esses IDs precisam ser ajustados conforme o form real)
         const googleFormFields = {
@@ -661,26 +661,24 @@ async function submitForm() {
             const value = formData[key];
             if (!googleFieldId || value == null || value === '') return;
             if (Array.isArray(value)) {
-                // Para checkboxes, envia múltiplas chaves repetidas
                 value.forEach(v => body.append(googleFieldId, v));
             } else {
                 body.append(googleFieldId, value);
             }
         });
 
-        // Alguns formulários exigem estes campos auxiliares; mantemos mínimos quando possível
-        // body.append('fvv', '1');
-        // body.append('partialResponse', '');
-        // body.append('pageHistory', '0');
-        // body.append('fbzx', Date.now().toString());
+        // Campos auxiliares comuns que alguns Forms esperam
+        body.append('fvv', '1');
+        body.append('draftResponse', '[]');
+        body.append('pageHistory', '0');
+        body.append('usp', 'pp_url');
 
         const GOOGLE_FORMS_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScIDdQTXjxGhq368hiDne04Ng8jMpzAscfES27ABi6AiJmFow/formResponse';
 
         // no-cors -> resposta opaca: não há como ler status; somente falhas de rede irão rejeitar
         await fetch(GOOGLE_FORMS_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-            body: body.toString(),
+            body,
             mode: 'no-cors',
             redirect: 'follow',
             keepalive: true
