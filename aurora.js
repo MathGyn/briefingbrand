@@ -1,6 +1,8 @@
-// Carregador dinâmico de OGL com fallback entre CDNs (evita 404 em produção)
+// Carregador dinâmico de OGL com fallback local e entre CDNs (evita 404 em produção)
 async function loadOGL() {
   const sources = [
+    // Tenta primeiro o módulo local (útil em dev/offline). Requer que o servidor sirva node_modules
+    './node_modules/ogl/src/index.js',
     'https://cdn.jsdelivr.net/npm/ogl@0.0.32/dist/ogl.mjs',
     'https://unpkg.com/ogl@0.0.32/dist/ogl.mjs',
     'https://esm.sh/ogl@0.0.32'
@@ -222,7 +224,9 @@ export class Aurora {
       this.program.uniforms.uBlend.value = this.options.blend;
       
       const colorStopsArray = this.options.colorStops.map(hex => {
-        const c = new this._ogl?.Color(hex);
+        // Em ambientes que não suportam optional chaining em "new",
+        // garantimos que this._ogl já foi definido no init() antes de animar
+        const c = new this._ogl.Color(hex);
         return [c.r, c.g, c.b];
       });
       this.program.uniforms.uColorStops.value = colorStopsArray;

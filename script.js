@@ -601,10 +601,14 @@ function generateSummary() {
     summaryEl.innerHTML = summaryHTML;
 }
 
+// Envio direto para Google Forms (formResponse) usando application/x-www-form-urlencoded
+
 // Enviar formulário
 async function submitForm() {
     const loadingEl = document.getElementById('loading');
     const successEl = document.getElementById('success');
+    const errorEl = document.getElementById('error');
+    const errorMsg = document.getElementById('errorMessage');
     const summaryEl = document.getElementById('summary');
     
     // Mostrar loading
@@ -625,8 +629,8 @@ async function submitForm() {
     document.body.classList.add('welcome-mode');
     
     try {
-        // Preparar dados para envio ao Google Form
-        const formDataToSend = new FormData();
+        // Preparar dados para envio (Google Forms espera x-www-form-urlencoded)
+        const body = new URLSearchParams();
         
         // Mapeamento dos campos para o Google Form (esses IDs precisam ser ajustados conforme o form real)
         const googleFormFields = {
@@ -654,25 +658,37 @@ async function submitForm() {
         // Preencher dados do formulário
         Object.keys(formData).forEach(key => {
             const googleFieldId = googleFormFields[key];
-            if (googleFieldId && formData[key]) {
-                let value = formData[key];
-                if (Array.isArray(value)) {
-                    value = value.join(', ');
-                }
-                formDataToSend.append(googleFieldId, value);
+            const value = formData[key];
+            if (!googleFieldId || value == null || value === '') return;
+            if (Array.isArray(value)) {
+                // Para checkboxes, envia múltiplas chaves repetidas
+                value.forEach(v => body.append(googleFieldId, v));
+            } else {
+                body.append(googleFieldId, value);
             }
         });
-        
-        // Simular envio para o Google Forms (substitua pela URL real do seu formulário)
-        const response = await fetch('https://docs.google.com/forms/d/e/1FAIpQLScIDdQTXjxGhq368hiDne04Ng8jMpzAscfES27ABi6AiJmFow/formResponse', {
+
+        // Alguns formulários exigem estes campos auxiliares; mantemos mínimos quando possível
+        // body.append('fvv', '1');
+        // body.append('partialResponse', '');
+        // body.append('pageHistory', '0');
+        // body.append('fbzx', Date.now().toString());
+
+        const GOOGLE_FORMS_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScIDdQTXjxGhq368hiDne04Ng8jMpzAscfES27ABi6AiJmFow/formResponse';
+
+        // no-cors -> resposta opaca: não há como ler status; somente falhas de rede irão rejeitar
+        await fetch(GOOGLE_FORMS_URL, {
             method: 'POST',
-            body: formDataToSend,
-            mode: 'no-cors' // Necessário para Google Forms
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+            body: body.toString(),
+            mode: 'no-cors',
+            redirect: 'follow',
+            keepalive: true
         });
-        
-        // Como usamos no-cors, sempre consideramos sucesso
+
         setTimeout(() => {
             loadingEl.style.display = 'none';
+            if (errorEl) errorEl.style.display = 'none';
             successEl.style.display = 'block';
             
             // Limpar dados salvos
@@ -690,20 +706,15 @@ async function submitForm() {
         
     } catch (error) {
         console.error('Erro ao enviar formulário:', error);
-        
-        // Em caso de erro, mostrar mensagem de sucesso mesmo assim
-        // pois o Google Forms em no-cors mode sempre dá erro
-        setTimeout(() => {
-            loadingEl.style.display = 'none';
-            successEl.style.display = 'block';
-            
-            // Limpar dados salvos
-            localStorage.removeItem('briefing-logo-progress');
-            localStorage.removeItem('briefing-logo-step');
-            const nav = document.querySelector('.navigation');
-            if (nav) nav.style.display = 'none';
-            document.body.classList.add('welcome-mode');
-        }, 2000);
+        loadingEl.style.display = 'none';
+        if (successEl) successEl.style.display = 'none';
+        if (errorEl) {
+            if (errorMsg) errorMsg.textContent = String(error.message || error);
+            errorEl.style.display = 'block';
+        }
+        submitBtn.disabled = false;
+        if (nav) nav.style.display = 'block';
+        document.body.classList.remove('welcome-mode');
     }
 }
 
